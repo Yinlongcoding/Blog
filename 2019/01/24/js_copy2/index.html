@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hey, Silver ~" />
+  <meta name="keywords" content="JavaScript,Prototype," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="纸上得来终觉浅，绝知此事要躬行">
-<meta name="keywords" content="Hey! Silver~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Silver">
-<meta property="og:url" content="http://sliver.site/blog/archives/2018/01/index.html">
+<meta name="description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
+<meta name="keywords" content="JavaScript,Prototype">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 深浅拷贝之道（中）">
+<meta property="og:url" content="http://sliver.site/blog/2019/01/24/js_copy2/index.html">
 <meta property="og:site_name" content="Silver">
-<meta property="og:description" content="纸上得来终觉浅，绝知此事要躬行">
+<meta property="og:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-15T15:06:43.772Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Silver">
-<meta name="twitter:description" content="纸上得来终觉浅，绝知此事要躬行">
+<meta name="twitter:title" content="JavaScript 深浅拷贝之道（中）">
+<meta name="twitter:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://sliver.site/blog/archives/2018/01/"/>
+  <link rel="canonical" href="http://sliver.site/blog/2019/01/24/js_copy2/"/>
 
 
 
 
 
-  <title>归档 | Silver</title>
+  <title>JavaScript 深浅拷贝之道（中） | Silver</title>
   
 
 
@@ -144,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,74 +249,176 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 3 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2019/01/24/js_copy2/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="吴银龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/miao.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Silver">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/blog/2018/01/24/css/" itemprop="url">
-              
-                <span itemprop="name">CSS小结</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">JavaScript 深浅拷贝之道（中）</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-01-24T18:21:23+08:00"
-              content="2018-01-24" >
-          01-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T18:21:23+08:00">
+                2019-01-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <blockquote>
+<p>深几何为深？浅几何为浅？<br>一步一步来，咱们摸着石头过河</p>
+</blockquote>
+<a id="more"></a>
+<p><em>“或许你从不知道也没使用过<code>object Copy</code>，但这不妨碍你知晓他。”</em></p>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在写本篇时，我正在读《You don’t konw JavaScript》中卷。<br>带着<code>深几何为深？浅几何为浅？</code>的疑问，我开始了自己对与自己定义的一步步印证</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/Prototype/" rel="tag"># Prototype</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/01/24/js_copy1/" rel="next" title="JavaScript 深浅拷贝之道（上）">
+                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（上）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -323,6 +426,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -343,8 +450,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -424,6 +540,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -564,6 +696,10 @@
 
 
   
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
