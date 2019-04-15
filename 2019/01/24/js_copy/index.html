@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Silver">
 <meta property="og:description" content="这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。所以，这个句号还是由我来画上吧”。”">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T08:08:07.659Z">
+<meta property="og:updated_time" content="2019-04-15T14:50:25.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 深浅拷贝之道（上）">
 <meta name="twitter:description" content="这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。所以，这个句号还是由我来画上吧”。”">
@@ -356,32 +356,25 @@
 <p>这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。<br>所以，这个句号还是由我来画上吧”。”</p>
 </blockquote>
 <a id="more"></a>
+<p><em>“或许你从不知道也没使用过<code>object Copy</code>，但这不妨碍你知晓他。”</em></p>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在写之前，我读完了《You don’t konw JavaScript》上卷，我在思考用什么样的逻辑方式来阐述这个话题，思来想去或许用写政治题目的那套方法更加合适，即：<code>是什么 为什么 怎么做</code></p>
+<h4 id="字面意思，唠一唠"><a href="#字面意思，唠一唠" class="headerlink" title="字面意思，唠一唠"></a>字面意思，唠一唠</h4><p>拷贝分为深浅两层，我将其比喻为书法，一开始我们只是在临摹字的样子，到后来足够熟练后会生出你独立的意境出来，这时你的字虽然和那些书法大家一摸一样，但是你的就是你的，你的改变不会影响哪位大家。<br>一个通俗的，且我认为不是很恰当的比喻，我们谈及了<code>影响</code>两个字眼，copy就从这里开始：<br><em>是否会影响到目标拷贝对象是区分深浅拷贝的最佳利器</em>。</p>
+<h4 id="为什么用？-amp-哪里用"><a href="#为什么用？-amp-哪里用" class="headerlink" title="为什么用？&amp; 哪里用?"></a>为什么用？&amp; 哪里用?</h4><ul>
+<li><p>为什么要用</p>
 <ul>
-<li><p>线性渐变 linear-grident</p>
-<ul>
-<li>当前很多设计师都会用到的一种艺术，或许在以前需要使用背景图。</li>
-<li>但是现在线性渐变就可以，只要你的分辨率不是太次就很清晰，放大也不会糊掉<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">background: linear-grident(方向/角度, color1, color2...);</span><br><span class="line"><span class="comment">/** eg: **/</span> </span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-grident</span>(<span class="selector-tag">to</span> <span class="selector-tag">bottom</span>, <span class="selector-id">#eac</span>, <span class="selector-id">#cae</span>);</span><br></pre></td></tr></table></figure>
+<li>背景：在一个项目中，我接到一个<code>数组A</code>，而后需要根据这个<code>数组A</code>衍生出<code>数组B</code>，同时根据<code>数组B</code>派生出<code>数组C</code></li>
+<li>需求：任意修改数组B C ，A不变动，修改B或者C，B &amp; C都联动</li>
+<li><p>建立在当前的情况下，你立马会想到如下代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = [&#123;<span class="attr">a</span>: <span class="string">'one'</span>&#125;, &#123;<span class="attr">b</span>: <span class="literal">true</span>&#125;, &#123;<span class="attr">c</span>: <span class="number">3</span>&#125;]</span><br><span class="line"><span class="keyword">var</span> B = deepClone(A)</span><br><span class="line"><span class="keyword">var</span> C = <span class="built_in">Object</span>.assign([], B)</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>显然这么做是正确的，我们需要保证B C独立于A，即两者的引用与A毫无瓜葛最多也就是看着一摸一样，即深拷贝；</p>
+</li>
+<li>ES6中的<code>Object.assign()</code>可以轻松的<code>融合(看起来是融合</code>两个类型相同的对象，且引用相同，即浅拷贝；</li>
+<li>如此或许可以简单的定义一下深浅拷贝的概念了。<ul>
+<li><strong>当且仅当你只有1份源数据，却需要根据改数据衍生出另外多份值一样的数据/变种，且多者引用不相互影响，即为深拷贝</strong></li>
+<li><strong>同样的前提，希望对象合成/复制操作，且保持对派生数据之间引用相互影响，即为：浅拷贝</strong></li>
 </ul>
 </li>
-<li><p>Lea Verou’s DRY</p>
-<ul>
-<li>在整本书中，所见极多的就是Lea Verou的DRY(don’t repeat yourself)，但Lea Verou所说不是所谓的“工匠精神”，而是从维护者的角度出发的正确思想。</li>
-<li><code>尽量少的代码</code>：如果一个元素的样式每次维护时需要更改6条属性，那么就存在1/6的bug隐患，因为我们很可能会忘记更改其中一个，那么这个时候尽量少的代码是最有效的降低这种问题的；</li>
-<li><code>代码易维护和代码量少不可兼得</code>：这里倾向于维护自定义较强的样式，这里比较推荐拆分的写法。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-width</span>: 10<span class="selector-tag">px</span> 10<span class="selector-tag">px</span> 10<span class="selector-tag">px</span> 0;</span><br><span class="line"><span class="comment">/** 更改如下：**/</span></span><br><span class="line"><span class="selector-tag">border-width</span>: 10<span class="selector-tag">px</span>; </span><br><span class="line"><span class="selector-tag">border-left-width</span>: 0;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>currentColor 和 inherit</p>
-<ul>
-<li>currentColor(当前颜色)，CSS中第一个变量，没有固定值，取的是当前文本的颜色，或许它应该更换一个名字，比如：currentTextColor</li>
-<li>inherit(继承)，相对于currentColor而言inherit的作用域极其广，可以用在任何 CSS 属性中，继承自己父级的样式。</li>
-</ul>
-</li>
-<li>Lea Verou &amp;&amp; 响应式网页设计<ul>
-<li>响应式page，不单单是只有<code>media query</code>，还有更多的解决方案，但Lea Verou认为<code>media query</code>是作为最后一种解决方案 — 断点；</li>
-<li>百分比布局和视口单位的合理使用</li>
-<li>在较大分辨率下想要获取固定宽度时，max-width要优于width，</li>
 </ul>
 </li>
 </ul>
@@ -417,7 +410,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/01/24/css/" rel="next" title="CSS小结">
+              <a href="/blog/2018/01/24/css/" rel="next" title="CSS小结">
                 <i class="fa fa-chevron-left"></i> CSS小结
               </a>
             
@@ -477,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -558,6 +560,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字面意思，唠一唠"><span class="nav-number">2.</span> <span class="nav-text">字面意思，唠一唠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用？-amp-哪里用"><span class="nav-number">3.</span> <span class="nav-text">为什么用？&amp; 哪里用?</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
