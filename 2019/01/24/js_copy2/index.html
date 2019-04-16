@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="半">
 <meta property="og:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-16T10:53:30.422Z">
+<meta property="og:updated_time" content="2019-04-16T12:34:03.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 深浅拷贝之道（下）">
 <meta name="twitter:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
@@ -358,10 +358,15 @@
 <a id="more"></a>
 <p><em>“或许你从不知道也没使用过<code>object Copy</code>，但这不妨碍你知晓他。”</em></p>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在写本篇时，我正在读《You don’t konw JavaScript》中卷。<br>带着<code>深几何为深？浅几何为浅？</code>的疑问，我开始了自己对与自己定义的一步步印证</p>
-<h4 id="浅几何为浅？"><a href="#浅几何为浅？" class="headerlink" title="浅几何为浅？"></a>浅几何为浅？</h4><ul>
-<li>浅显的赋值</li>
-<li>浅显的复制</li>
-<li>浅的到似乎还在“源头”</li>
+<h4 id="浅几何为浅？"><a href="#浅几何为浅？" class="headerlink" title="浅几何为浅？"></a>浅几何为浅？</h4><p>初始定义：<code>希望对象合成/复制操作，且保持对派生数据之间引用相互影响，即为：浅拷贝</code><br>下面我们开始印证上述的初始定义：</p>
+<h5 id="浅显的赋值"><a href="#浅显的赋值" class="headerlink" title="浅显的赋值"></a>浅显的赋值</h5><ul>
+<li><p>简单的赋值操作可以看作是一种拷贝，同样的保持了源数据和派生数据的关联。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sourceData = &#123; </span><br><span class="line">  name: <span class="string">'silver'</span>, </span><br><span class="line">  family: [<span class="string">'father'</span>,<span class="string">'mather'</span>,<span class="string">'sister'</span>],</span><br><span class="line">  mind: &#123;</span><br><span class="line">    sunny: <span class="string">'happy'</span>,</span><br><span class="line">    windy: <span class="string">'sad'</span></span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newData = sourceData</span><br><span class="line"></span><br><span class="line">newDate.name === sourceData.name <span class="comment">// true</span></span><br><span class="line">newDate.name = <span class="string">'Tony'</span></span><br><span class="line">newDate.mind.sunny = <span class="string">'sad'</span></span><br><span class="line">sourceData.name   <span class="comment">// Tony</span></span><br><span class="line">sourceData.mind.sunny <span class="comment">// sad</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如上代码所示，看似没什么问题，关联也达成了，但是却并非是浅拷贝，浅拷贝我们需要联动的仅仅只是引用类型的值</p>
+</li>
+<li>在实际项目中，修改值类型一般不是我们所希望的结果，如果不联动值类型只联动引用类型就好啦～</li>
+<li>所以我们需要初始定义或许需要加上一个必要的前提<code>在不修改单纯值类型的情况下</code><h5 id="浅显的复制"><a href="#浅显的复制" class="headerlink" title="浅显的复制"></a>浅显的复制</h5><h5 id="浅的到似乎还在“源头”"><a href="#浅的到似乎还在“源头”" class="headerlink" title="浅的到似乎还在“源头”"></a>浅的到似乎还在“源头”</h5></li>
 </ul>
 <h4 id="深几何为深？"><a href="#深几何为深？" class="headerlink" title="深几何为深？"></a>深几何为深？</h4><ul>
 <li>深到知根知底</li>
@@ -400,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/01/24/js_copy1/" rel="next" title="JavaScript 深浅拷贝之道（上）">
-                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（上）
+              <a href="/blog/2018/01/24/css/" rel="next" title="CSS小结">
+                <i class="fa fa-chevron-left"></i> CSS小结
               </a>
             
           </div>
@@ -409,6 +414,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/01/24/js_copy1/" rel="prev" title="JavaScript 深浅拷贝之道（上）">
+                JavaScript 深浅拷贝之道（上） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -560,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浅几何为浅？"><span class="nav-number">2.</span> <span class="nav-text">浅几何为浅？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深几何为深？"><span class="nav-number">3.</span> <span class="nav-text">深几何为深？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浅几何为浅？"><span class="nav-number">2.</span> <span class="nav-text">浅几何为浅？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的赋值"><span class="nav-number">2.1.</span> <span class="nav-text">浅显的赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的复制"><span class="nav-number">2.2.</span> <span class="nav-text">浅显的复制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅的到似乎还在“源头”"><span class="nav-number">2.3.</span> <span class="nav-text">浅的到似乎还在“源头”</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深几何为深？"><span class="nav-number">3.</span> <span class="nav-text">深几何为深？</span></a></li></ol></div>
             
 
           </div>
