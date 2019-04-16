@@ -82,14 +82,14 @@
 <meta name="description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta name="keywords" content="JavaScript,Prototype">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript 深浅拷贝之道（中）">
+<meta property="og:title" content="JavaScript 深浅拷贝之道（下）">
 <meta property="og:url" content="http://sliver.site/blog/2019/01/24/js_copy2/index.html">
-<meta property="og:site_name" content="Silver">
+<meta property="og:site_name" content="半">
 <meta property="og:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T15:06:43.772Z">
+<meta property="og:updated_time" content="2019-04-16T10:53:30.422Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript 深浅拷贝之道（中）">
+<meta name="twitter:title" content="JavaScript 深浅拷贝之道（下）">
 <meta name="twitter:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>JavaScript 深浅拷贝之道（中） | Silver</title>
+  <title>JavaScript 深浅拷贝之道（下） | 半</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/blog/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Silver</span>
+        <span class="site-title">半</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -266,13 +266,13 @@
     <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2019/01/24/js_copy2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="吴银龙">
+      <meta itemprop="name" content="silver">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/blog/images/miao.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Silver">
+      <meta itemprop="name" content="半">
     </span>
 
     
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript 深浅拷贝之道（中）</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript 深浅拷贝之道（下）</h1>
         
 
         <div class="post-meta">
@@ -358,6 +358,16 @@
 <a id="more"></a>
 <p><em>“或许你从不知道也没使用过<code>object Copy</code>，但这不妨碍你知晓他。”</em></p>
 <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在写本篇时，我正在读《You don’t konw JavaScript》中卷。<br>带着<code>深几何为深？浅几何为浅？</code>的疑问，我开始了自己对与自己定义的一步步印证</p>
+<h4 id="浅几何为浅？"><a href="#浅几何为浅？" class="headerlink" title="浅几何为浅？"></a>浅几何为浅？</h4><ul>
+<li>浅显的赋值</li>
+<li>浅显的复制</li>
+<li>浅的到似乎还在“源头”</li>
+</ul>
+<h4 id="深几何为深？"><a href="#深几何为深？" class="headerlink" title="深几何为深？"></a>深几何为深？</h4><ul>
+<li>深到知根知底</li>
+<li>青出于蓝而不是蓝</li>
+<li>相忘于江湖</li>
+</ul>
 
       
     </div>
@@ -390,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/01/24/css/" rel="next" title="CSS小结">
-                <i class="fa fa-chevron-left"></i> CSS小结
+              <a href="/blog/2019/01/24/js_copy1/" rel="next" title="JavaScript 深浅拷贝之道（上）">
+                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（上）
               </a>
             
           </div>
@@ -399,10 +409,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/01/24/js_copy1/" rel="prev" title="JavaScript 深浅拷贝之道（上）">
-                JavaScript 深浅拷贝之道（上） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,9 +476,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/blog/images/miao.jpeg"
-                alt="吴银龙" />
+                alt="silver" />
             
-              <p class="site-author-name" itemprop="name">吴银龙</p>
+              <p class="site-author-name" itemprop="name">silver</p>
               <p class="site-description motion-element" itemprop="description">纸上得来终觉浅，绝知此事要躬行</p>
           </div>
 
@@ -554,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浅几何为浅？"><span class="nav-number">2.</span> <span class="nav-text">浅几何为浅？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深几何为深？"><span class="nav-number">3.</span> <span class="nav-text">深几何为深？</span></a></li></ol></div>
             
 
           </div>
@@ -578,7 +584,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">吴银龙</span>
+  <span class="author" itemprop="copyrightHolder">silver</span>
 
   
 </div>
