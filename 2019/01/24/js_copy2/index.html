@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="半">
 <meta property="og:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-18T01:15:08.569Z">
+<meta property="og:updated_time" content="2019-04-18T14:22:12.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 深浅拷贝之道（下）">
 <meta name="twitter:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
@@ -374,6 +374,11 @@
 </li>
 </ul>
 <h5 id="青出于蓝而不是蓝"><a href="#青出于蓝而不是蓝" class="headerlink" title="青出于蓝而不是蓝"></a>青出于蓝而不是蓝</h5><p>如上述代码所示，我们深度拷贝了一个对象，我们需要测试一下两者是还有什么关联<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fruitData = deepClone(sourceData)</span><br><span class="line">fruitData.name = <span class="string">"bilibli"</span>  </span><br><span class="line">sourceData.name <span class="comment">// silver 哦嚯，好像没什么问题</span></span><br><span class="line">fruitData.name <span class="comment">// bilibili emmm 也没啥问题</span></span><br><span class="line"></span><br><span class="line">sourceData.mind.windy = <span class="string">"略略略"</span> </span><br><span class="line">fruitData.mind.windy <span class="comment">// sad ok。 也没啥问题</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>看来成功的做到深拷贝了，正如小标题所言：青出于蓝而不是蓝。我copy了源数据的所有值和引用，将其存放在一个变量中，虽然fruitData是sourceData的衍生，但是他们确没什么关系了。</li>
+<li>现在我们需要考虑一下deepClone的实现了，思路很简单，遍历+递归<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result; <span class="comment">// 这将是最终输出的对象</span></span><br><span class="line">  <span class="comment">// 接下来我们需要根据类型做不同的拷贝</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <h5 id="相忘于江湖"><a href="#相忘于江湖" class="headerlink" title="相忘于江湖"></a>相忘于江湖</h5>
       
     </div>
