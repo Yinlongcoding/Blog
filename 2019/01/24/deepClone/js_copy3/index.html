@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Prototype," />
+  <meta name="keywords" content="JavaScript,deepClone," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。所以，这个句号还是由我来画上吧”。”">
-<meta name="keywords" content="JavaScript,Prototype">
+<meta name="description" content="哦嚯，你以为完结了？其实不然，我有番外篇我还有EVA，我就问你怕不怕？？？">
+<meta name="keywords" content="JavaScript,deepClone">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript 深浅拷贝之道（上）">
-<meta property="og:url" content="http://sliver.site/blog/2019/01/24/js_copy1/index.html">
+<meta property="og:title" content="JavaScript 深浅拷贝之道（番外篇）">
+<meta property="og:url" content="http://sliver.site/blog/2019/01/24/deepClone/js_copy3/index.html">
 <meta property="og:site_name" content="半">
-<meta property="og:description" content="这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。所以，这个句号还是由我来画上吧”。”">
+<meta property="og:description" content="哦嚯，你以为完结了？其实不然，我有番外篇我还有EVA，我就问你怕不怕？？？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-16T15:38:44.502Z">
+<meta property="og:updated_time" content="2019-04-20T06:53:07.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript 深浅拷贝之道（上）">
-<meta name="twitter:description" content="这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。所以，这个句号还是由我来画上吧”。”">
+<meta name="twitter:title" content="JavaScript 深浅拷贝之道（番外篇）">
+<meta name="twitter:description" content="哦嚯，你以为完结了？其实不然，我有番外篇我还有EVA，我就问你怕不怕？？？">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://sliver.site/blog/2019/01/24/js_copy1/"/>
+  <link rel="canonical" href="http://sliver.site/blog/2019/01/24/deepClone/js_copy3/"/>
 
 
 
 
 
-  <title>JavaScript 深浅拷贝之道（上） | 半</title>
+  <title>JavaScript 深浅拷贝之道（番外篇） | 半</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2019/01/24/js_copy1/">
+    <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2019/01/24/deepClone/js_copy3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="silver">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript 深浅拷贝之道（上）</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript 深浅拷贝之道（番外篇）</h1>
         
 
         <div class="post-meta">
@@ -353,28 +353,12 @@
 
       
         <blockquote>
-<p>这个快聊烂的话题，也不知道什么时候能圆满的画上一个句号。<br>所以，这个句号还是由我来画上吧”。”</p>
+<p>哦嚯，你以为完结了？其实不然，我有番外篇<br>我还有EVA，我就问你怕不怕？？？</p>
 </blockquote>
 <a id="more"></a>
-<p><em>“或许你从不知道也没使用过<code>object Copy</code>，但这不妨碍你知晓他。”</em></p>
-<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在写之前，我读完了《You don’t konw JavaScript》上卷，我在思考用什么样的逻辑方式来阐述这个话题，思来想去或许用写政治题目的那套方法更加合适，即：<code>是什么 为什么 怎么做</code></p>
-<h4 id="字面意思，唠一唠"><a href="#字面意思，唠一唠" class="headerlink" title="字面意思，唠一唠"></a>字面意思，唠一唠</h4><p>拷贝分为深浅两层，我将其比喻为书法，一开始我们只是在临摹字的样子，到后来足够熟练后会生出你独立的意境出来，这时你的字虽然和那些书法大家一摸一样，但是你的就是你的，你的改变不会影响哪位大家。<br>一个通俗的，且我认为不是很恰当的比喻，我们谈及了<code>影响</code>两个字眼，copy就从这里开始：<br><em>是否会影响到目标拷贝对象是区分深浅拷贝的最佳利器</em>。</p>
-<h4 id="为什么用？-amp-哪里用"><a href="#为什么用？-amp-哪里用" class="headerlink" title="为什么用？&amp; 哪里用?"></a>为什么用？&amp; 哪里用?</h4><ul>
-<li>背景：在一个项目中，我接到一个<code>数组A</code>，而后需要根据这个<code>数组A</code>衍生出<code>数组B</code>，同时根据<code>数组B</code>派生出<code>数组C</code></li>
-<li>需求：任意修改数组B C ，A不变动，修改B或者C，B &amp; C都联动</li>
-<li><p>建立在当前的情况下，你立马会想到如下代码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = [&#123;<span class="attr">a</span>: <span class="string">'one'</span>&#125;, &#123;<span class="attr">b</span>: <span class="literal">true</span>&#125;, &#123;<span class="attr">c</span>: <span class="number">3</span>&#125;]</span><br><span class="line"><span class="keyword">var</span> B = deepClone(A)</span><br><span class="line"><span class="keyword">var</span> C = <span class="built_in">Object</span>.assign([], B)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>显然这么做是正确的，我们需要保证B C独立于A，即两者的引用与A毫无瓜葛最多也就是看着一摸一样，即深拷贝；</p>
-</li>
-<li>ES6中的<code>Object.assign()</code>可以轻松的<code>融合(看起来是融合</code>两个类型相同的对象，且引用相同，即浅拷贝；</li>
-<li>如此或许可以简单的定义一下深浅拷贝的概念了。<ul>
-<li><strong>当且仅当你只有1份源数据，却需要根据改数据衍生出另外多份值一样的数据/变种，且多者引用不相互影响，即为深拷贝</strong></li>
-<li><strong>同样的前提，希望对象合成/复制操作，且保持对派生数据之间引用相互影响，即为浅拷贝</strong></li>
-</ul>
-</li>
-</ul>
-<h4 id="留下点问题"><a href="#留下点问题" class="headerlink" title="留下点问题"></a>留下点问题</h4><p>通过前面的阐述或许应该有那么一点感觉，你或许认为自己大概明白了什么是深浅拷贝，但是问题接踵而来：<code>深几何为深？ 浅几何为浅？</code><br>不要走开，带着疑问，<code>JavaScript 深浅拷贝之道（中）</code>给你答案。</p>
+<h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>虽然在实现了深浅拷贝，但是依旧存在一些问题和限制，所以才有这篇番外。<br>当然，本次番外，只讨论深拷贝的问题。</p>
+<h4 id="深度问题"><a href="#深度问题" class="headerlink" title="深度问题"></a>深度问题</h4><p>试想，如果需要深度拷贝的源数据，层级达到500层(或者5000层)。那，我真的要去深拷贝嘛？<br>根据我查到的资料：chrome 栈层级约为5000，所以这是一个上限。<br>当然，在考虑深度的同时，我们需要考虑一下时间成本，深层次遍历时间成本为几何倍增长，递增曲线及其陡峭<br>所以，在深拷贝时，设定一个阀值是一个兼顾时间于层级的方案。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result; </span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> valve = <span class="number">300</span>;<span class="comment">// 预设深度</span></span><br><span class="line">  <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123; </span><br><span class="line">      result = []</span><br><span class="line">      <span class="keyword">var</span> i = obj.length</span><br><span class="line">      <span class="keyword">if</span> (count &lt;= valve) &#123;</span><br><span class="line">        <span class="keyword">while</span> (i--) &#123;</span><br><span class="line">          count++</span><br><span class="line">          result[i] = deepClone(obj[i])</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Toast(<span class="string">'层级过深，请优化结构。'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">      result = &#123;&#125;</span><br><span class="line">      <span class="keyword">if</span> (count &lt;= valve) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> obj) &#123;</span><br><span class="line">          count++</span><br><span class="line">          result[k] = deepClone(obj[k]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Toast(<span class="string">'层级过深，请优化结构。'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如代码中提示的那样，如果你的层级过深，或许考虑的不应是如何拷贝，而是如何优化当前的结构。</p>
 
       
     </div>
@@ -394,7 +378,7 @@
           
             <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/blog/tags/Prototype/" rel="tag"># Prototype</a>
+            <a href="/blog/tags/deepClone/" rel="tag"># deepClone</a>
           
         </div>
       
@@ -407,8 +391,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/01/24/js_copy2/" rel="next" title="JavaScript 深浅拷贝之道（下）">
-                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（下）
+              <a href="/blog/2018/01/24/Summary-css/css/" rel="next" title="CSS小结">
+                <i class="fa fa-chevron-left"></i> CSS小结
               </a>
             
           </div>
@@ -417,8 +401,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/04/19/node/reptile/" rel="prev" title="Node.js 爬虫实践[爬小说]">
-                Node.js 爬虫实践[爬小说] <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2019/01/24/deepClone/js_copy2/" rel="prev" title="JavaScript 深浅拷贝之道（下）">
+                JavaScript 深浅拷贝之道（下） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -500,7 +484,7 @@
               
                 <a href="/blog/archives">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字面意思，唠一唠"><span class="nav-number">2.</span> <span class="nav-text">字面意思，唠一唠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用？-amp-哪里用"><span class="nav-number">3.</span> <span class="nav-text">为什么用？&amp; 哪里用?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#留下点问题"><span class="nav-number">4.</span> <span class="nav-text">留下点问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度问题"><span class="nav-number">2.</span> <span class="nav-text">深度问题</span></a></li></ol></div>
             
 
           </div>
