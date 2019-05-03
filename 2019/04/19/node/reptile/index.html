@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="半">
 <meta property="og:description" content="当你既不想去起点中文网买小说看，又不想在小网站是不是看到那些脸红心跳小广告时，咋办？爬它！！！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-01T08:20:35.756Z">
+<meta property="og:updated_time" content="2019-05-03T09:14:11.222Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js 爬虫实践[爬小说]">
 <meta name="twitter:description" content="当你既不想去起点中文网买小说看，又不想在小网站是不是看到那些脸红心跳小广告时，咋办？爬它！！！">
@@ -362,20 +362,18 @@
 <li>找一个小型的盗版小说网站 —— （哦嚯，这个诸君自行百度</li>
 <li>分析一下小说页面结构，找到爬去元素 —— your target</li>
 <li>准备好爬虫环境 —— NodeJs</li>
-</ul>
-<h4 id="是时候开始了"><a href="#是时候开始了" class="headerlink" title="是时候开始了"></a>是时候开始了</h4><p><code>目前暂定各位环境已经装好</code></p>
-<ul>
+<li>看一篇很舒适的node教程，比如<a href="https://github.com/alsotang/node-lessons" target="_blank" rel="noopener">《nodejs包教不包会》</a><h4 id="是时候开始了"><a href="#是时候开始了" class="headerlink" title="是时候开始了"></a>是时候开始了</h4><code>目前暂定各位环境已经装好</code></li>
 <li>一些必须模块 &amp;&amp; 库<ul>
-<li>express or koa （当然这取决你的意愿</li>
-<li>cheerio （node的jQuery</li>
-<li>superAgent (<code>超级特工???</code> 所以他只是个发送请求用的</li>
+<li><a href="http://www.expressjs.com.cn/" target="_blank" rel="noopener">express</a> or <a href="https://koa.bootcss.com/" target="_blank" rel="noopener">koa</a> （当然这取决你的意愿</li>
+<li><a href="https://cheerio.js.org/" target="_blank" rel="noopener">cheerio</a> （node的jQuery</li>
+<li><a href="https://github.com/visionmedia/superagent" target="_blank" rel="noopener">superAgent</a> (<code>超级特工???</code> 所以他只是个发送请求用的</li>
 </ul>
 </li>
 <li>一些锦上添花的<code>小玩意儿</code><ul>
-<li>fs (抓到数据后，保存到本地的module</li>
-<li>os (用来获取本地ipv6/ipv4地址</li>
-<li>opn （相信各位都用过cli工具，构建完成后自动打开默认浏览器。opn module 主动打开当钱操作系统的某个应用</li>
-<li>asyc (我用来做并发控制</li>
+<li><a href="https://nodejs.org/docs/latest-v9.x/api/fs.html" target="_blank" rel="noopener">fs</a> (抓到数据后，保存到本地的module</li>
+<li><a href="https://nodejs.org/docs/latest-v9.x/api/os.html" target="_blank" rel="noopener">os</a> (用来获取本地ipv6/ipv4地址</li>
+<li><a href="https://www.npmjs.com/package/open" target="_blank" rel="noopener">opn</a> （相信各位都用过cli工具，构建完成后自动打开默认浏览器。opn module 主动打开当钱操作系统的某个应用</li>
+<li><a href="https://caolan.github.io/async/" target="_blank" rel="noopener">async</a> (我用来做并发控制</li>
 </ul>
 </li>
 <li>功能预览<ul>
@@ -386,6 +384,8 @@
 </ul>
 </li>
 </ul>
+<h4 id="开始撸码"><a href="#开始撸码" class="headerlink" title="开始撸码"></a>开始撸码</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> cheerio = <span class="built_in">require</span>(<span class="string">'cheerio'</span>)</span><br><span class="line"><span class="keyword">const</span> superagent = <span class="built_in">require</span>(<span class="string">'superagent'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">async</span> = <span class="built_in">require</span>(<span class="string">'async'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> open = <span class="built_in">require</span>(<span class="string">'open'</span>)</span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span> <span class="comment">// 监听端口</span></span><br><span class="line"><span class="keyword">const</span> reqUrl = <span class="string">'https://cn.bing.com/'</span> <span class="comment">// 爬取的目录地址，这里举个例子爬取必应</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>   <span class="comment">// 计数器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">//   title: '第一章',</span></span><br><span class="line"><span class="comment">//   url: 'https://www.bing.com/2389',</span></span><br><span class="line"><span class="comment">//   content: '这里存放JSON处理后的小说内容'</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="keyword">let</span> resultList = []  <span class="comment">// 最终生成的数据</span></span><br></pre></td></tr></table></figure>
+<p>至此为止，我们引入并定义了我们需要的工具和变量，最终我们要输出的的是一个数组，接下来我们要实现爬取所有章节列表的功能；</p>
 
       
     </div>
@@ -418,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/01/24/deepClone/js_copy2/" rel="next" title="JavaScript 深浅拷贝之道（下）">
-                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（下）
+              <a href="/blog/2019/01/24/deepClone/js_copy1/" rel="next" title="JavaScript 深浅拷贝之道（上）">
+                <i class="fa fa-chevron-left"></i> JavaScript 深浅拷贝之道（上）
               </a>
             
           </div>
@@ -578,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#宣誓工作"><span class="nav-number">1.</span> <span class="nav-text">宣誓工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#是时候开始了"><span class="nav-number">3.</span> <span class="nav-text">是时候开始了</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#宣誓工作"><span class="nav-number">1.</span> <span class="nav-text">宣誓工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#是时候开始了"><span class="nav-number">3.</span> <span class="nav-text">是时候开始了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始撸码"><span class="nav-number">4.</span> <span class="nav-text">开始撸码</span></a></li></ol></div>
             
 
           </div>
