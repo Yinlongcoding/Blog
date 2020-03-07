@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="半">
 <meta property="og:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-20T06:53:24.415Z">
+<meta property="og:updated_time" content="2020-03-07T15:08:06.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 深浅拷贝之道（下）">
 <meta name="twitter:description" content="深几何为深？浅几何为浅？一步一步来，咱们摸着石头过河">
@@ -379,8 +379,14 @@
 <li>现在我们需要考虑一下deepClone的实现了，思路很简单，遍历+递归<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result; <span class="comment">// 这将是最终输出的对象</span></span><br><span class="line">  <span class="comment">// 接下来我们需要根据类型做不同的拷贝</span></span><br><span class="line">  <span class="comment">// 判定如果是数组，那就递归拷贝数组每一项</span></span><br><span class="line">  <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123; </span><br><span class="line">      result = []</span><br><span class="line">      <span class="keyword">var</span> i = obj.length</span><br><span class="line">      <span class="keyword">while</span> (i--) &#123;</span><br><span class="line">        result[i] = deepClone(obj[i])</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果是个对象的话，in 操作符递归遍历</span></span><br><span class="line">      result = &#123;&#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        result[k] = deepClone(obj[k]);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 反之如果是个值的话，可以直接拷贝了</span></span><br><span class="line">      <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>最终的测试环节交给看到这篇文的你了。</p>
-<h5 id="相忘于江湖"><a href="#相忘于江湖" class="headerlink" title="相忘于江湖"></a>相忘于江湖</h5><p>实现了整个深拷贝后，我陷入了沉思，唯有一句诗来形容它了：<br><em>“相濡以沫，不如相忘于江湖”</em></p>
+<blockquote>
+<p>2020.2.15更</p>
+</blockquote>
+<h4 id="深度真的限制了JSON-stringfy来做深拷贝？"><a href="#深度真的限制了JSON-stringfy来做深拷贝？" class="headerlink" title="深度真的限制了JSON.stringfy来做深拷贝？"></a>深度真的限制了JSON.stringfy来做深拷贝？</h4><p>实践发现，即使再深的层级依旧可以使用<code>JSON.stringfy(obj)</code>来实现，且并不影响速度，真正的原因如下：</p>
+<blockquote>
+<p><em>JSON.stringify() 将值转换为相应的JSON格式：</em><br><em>undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）。函数、undefined 被单独转换时，会返回 undefined，如JSON.stringify(function(){}) or JSON.stringify(undefined).</em><br>摘自<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank" rel="noopener">MDN JSON.stringify</a></p>
+</blockquote>
+<p>但有趣的是，JSON.stringify可以提供一个<strong>replacer参数</strong>，我将其理解为序列化行为方式，即可以通过他hack一下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> toJSON = <span class="function">(<span class="params">key, value</span>) =&gt;</span> &#123;  </span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> value + <span class="string">' '</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(obj, toJSON);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -506,7 +512,7 @@
               
                 <a href="/blog/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -517,7 +523,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/blog/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -528,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -577,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浅几何为浅？"><span class="nav-number">2.</span> <span class="nav-text">浅几何为浅？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的赋值"><span class="nav-number">2.1.</span> <span class="nav-text">浅显的赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的复制"><span class="nav-number">2.2.</span> <span class="nav-text">浅显的复制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深几何为深？"><span class="nav-number">3.</span> <span class="nav-text">深几何为深？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#深到知根知底"><span class="nav-number">3.1.</span> <span class="nav-text">深到知根知底</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#青出于蓝而不是蓝"><span class="nav-number">3.2.</span> <span class="nav-text">青出于蓝而不是蓝</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相忘于江湖"><span class="nav-number">3.3.</span> <span class="nav-text">相忘于江湖</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浅几何为浅？"><span class="nav-number">2.</span> <span class="nav-text">浅几何为浅？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的赋值"><span class="nav-number">2.1.</span> <span class="nav-text">浅显的赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浅显的复制"><span class="nav-number">2.2.</span> <span class="nav-text">浅显的复制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深几何为深？"><span class="nav-number">3.</span> <span class="nav-text">深几何为深？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#深到知根知底"><span class="nav-number">3.1.</span> <span class="nav-text">深到知根知底</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#青出于蓝而不是蓝"><span class="nav-number">3.2.</span> <span class="nav-text">青出于蓝而不是蓝</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度真的限制了JSON-stringfy来做深拷贝？"><span class="nav-number">4.</span> <span class="nav-text">深度真的限制了JSON.stringfy来做深拷贝？</span></a></li></ol></div>
             
 
           </div>
@@ -597,7 +603,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
