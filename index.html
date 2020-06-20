@@ -263,6 +263,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2020/06/20/Summary-css/lineHeight_Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="silver">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/miao.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="伴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2020/06/20/Summary-css/lineHeight_Android/" itemprop="url">Android webView "line-height" 字体无法垂直居中</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-20T12:45:00+08:00">
+                2020-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<p>line-height材料<br><a href="https://stackoverflow.com/questions/31573602/android-webview-css-line-height-rendering-bug" target="_blank" rel="noopener">Android WebView css line-height rendering bug</a><br><img src="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg" alt="stackoverflow"><br>This is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: Bug 84186</p>
+<p>Having the same problem as you, I actually created a javascript library that tries to fix the issue automatically. Be warned though, it’s still in BETA status.</p>
+<p>webkit-bugs remarks<br><a href="https://bugs.webkit.org/show_bug.cgi?id=84186" target="_blank" rel="noopener">webkit-bugs remarks</a>;<br><img src="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg" alt="webkit-bugs remarks"></p>
+<p>Master bug to track progress and related issues.</p>
+<p>When viewing desktop websites on mobile devices, browsers usually layout the page at a fixed width of about 980 CSS pixels due to the default viewport settings. The user usually can’t read the text when the page is initially displayed, but can zoom in to read it. However on a portrait phone screen, once zoomed in such that text is a legible size, only about a 320 CSS pixel wide area of content fits onscreen at a time.</p>
+<p>For wide columns of text, this means you’d either need to zoom out and look at tiny unreadable / barely readable text, or you’d need to pan left and right for every line of text you read. The same thing happens (though less severely) on landscape phones and on portrait tablets.</p>
+<p>To prevent such situations, this bug tracks adding support for Font Boosting (upstreamed from Chrome for Android). When pages load, Font Boosting increases the font size of text in wide columns, so you won’t have to zoom in on them as much and hence every column fits onscreen at a legible text size.</p>
+<h2 id="Related-Links"><a href="#Related-Links" class="headerlink" title="Related Links"></a>Related Links</h2><p>Firefox Mobile:</p>
+<ul>
+<li>Description: <a href="http://dbaron.org/log/20111126-font-inflation" target="_blank" rel="noopener">http://dbaron.org/log/20111126-font-inflation</a></li>
+<li>Bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=627842" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=627842</a></li>
+<li>Dev doc: <a href="https://developer.mozilla.org/en/CSS/text-size-adjust" target="_blank" rel="noopener">https://developer.mozilla.org/en/CSS/text-size-adjust</a><br>Mobile Safari:</li>
+<li>Dev doc: <a href="http://goo.gl/rRIiF" target="_blank" rel="noopener">http://goo.gl/rRIiF</a><br>Internet Explorer:</li>
+<li>Dev doc: <a href="http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2</a></li>
+<li>Interaction with Compatibility View: <a href="http://goo.gl/QdhRm" target="_blank" rel="noopener">http://goo.gl/QdhRm</a><br>Comment 1Simon Hausmann 2012-04-18 01:43:44 PDT</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sliver.site/blog/blog/2020/02/01/aboutSummary/20190123-JS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1176,7 +1334,7 @@
               
                 <a href="/blog/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1198,7 +1356,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
