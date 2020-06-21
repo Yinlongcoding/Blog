@@ -79,21 +79,23 @@
 
 
 
-<meta name="description" content="line-height材料Android WebView css line-height rendering bugThis is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: Bug 84186 Having the same problem">
+<meta name="description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta name="keywords" content="CSS,webView,Android,css兼容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android webView &quot;line-height&quot; 字体无法垂直居中">
+<meta property="og:title" content="Android webView &quot;line-height&quot; 问题">
 <meta property="og:url" content="http://sliver.site/blog/2020/06/20/Summary-css/lineHeight_Android/index.html">
 <meta property="og:site_name" content="伴">
-<meta property="og:description" content="line-height材料Android WebView css line-height rendering bugThis is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: Bug 84186 Having the same problem">
+<meta property="og:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/21/N15rmq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/06/21/N3PKVf.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg">
-<meta property="og:updated_time" content="2020-06-20T05:06:47.688Z">
+<meta property="og:updated_time" content="2020-06-21T06:03:33.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android webView &quot;line-height&quot; 字体无法垂直居中">
-<meta name="twitter:description" content="line-height材料Android WebView css line-height rendering bugThis is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: Bug 84186 Having the same problem">
-<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg">
+<meta name="twitter:title" content="Android webView &quot;line-height&quot; 问题">
+<meta name="twitter:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/06/21/N15rmq.png">
 
 
 
@@ -129,7 +131,7 @@
 
 
 
-  <title>Android webView "line-height" 字体无法垂直居中 | 伴</title>
+  <title>Android webView "line-height" 问题 | 伴</title>
   
 
 
@@ -283,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android webView "line-height" 字体无法垂直居中</h1>
+          <h1 class="post-title" itemprop="name headline">Android webView "line-height" 问题</h1>
         
 
         <div class="post-meta">
@@ -355,25 +357,33 @@
       
 
       
-        <a id="more"></a>
-<p>line-height材料<br><a href="https://stackoverflow.com/questions/31573602/android-webview-css-line-height-rendering-bug" target="_blank" rel="noopener">Android WebView css line-height rendering bug</a><br><img src="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg" alt="stackoverflow"><br>This is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: Bug 84186</p>
-<p>Having the same problem as you, I actually created a javascript library that tries to fix the issue automatically. Be warned though, it’s still in BETA status.</p>
-<p>webkit-bugs remarks<br><a href="https://bugs.webkit.org/show_bug.cgi?id=84186" target="_blank" rel="noopener">webkit-bugs remarks</a>;<br><img src="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg" alt="webkit-bugs remarks"></p>
-<p>Master bug to track progress and related issues.</p>
-<p>When viewing desktop websites on mobile devices, browsers usually layout the page at a fixed width of about 980 CSS pixels due to the default viewport settings. The user usually can’t read the text when the page is initially displayed, but can zoom in to read it. However on a portrait phone screen, once zoomed in such that text is a legible size, only about a 320 CSS pixel wide area of content fits onscreen at a time.</p>
-<p>For wide columns of text, this means you’d either need to zoom out and look at tiny unreadable / barely readable text, or you’d need to pan left and right for every line of text you read. The same thing happens (though less severely) on landscape phones and on portrait tablets.</p>
-<p>To prevent such situations, this bug tracks adding support for Font Boosting (upstreamed from Chrome for Android). When pages load, Font Boosting increases the font size of text in wide columns, so you won’t have to zoom in on them as much and hence every column fits onscreen at a legible text size.</p>
-<h2 id="Related-Links"><a href="#Related-Links" class="headerlink" title="Related Links"></a>Related Links</h2><p>Firefox Mobile:</p>
-<ul>
-<li>Description: <a href="http://dbaron.org/log/20111126-font-inflation" target="_blank" rel="noopener">http://dbaron.org/log/20111126-font-inflation</a></li>
-<li>Bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=627842" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=627842</a></li>
-<li>Dev doc: <a href="https://developer.mozilla.org/en/CSS/text-size-adjust" target="_blank" rel="noopener">https://developer.mozilla.org/en/CSS/text-size-adjust</a><br>Mobile Safari:</li>
-<li>Dev doc: <a href="http://goo.gl/rRIiF" target="_blank" rel="noopener">http://goo.gl/rRIiF</a><br>Internet Explorer:</li>
-<li>Dev doc: <a href="http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2</a></li>
-<li>Interaction with Compatibility View: <a href="http://goo.gl/QdhRm" target="_blank" rel="noopener">http://goo.gl/QdhRm</a><br>Comment 1Simon Hausmann 2012-04-18 01:43:44 PDT</li>
-</ul>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height</a></p>
-<p>默认的line-height 为1.2，规范建议我们将<br>主段落内容的 line-height 至少应为 1.5。 这将有助于改善低可视条件下的体验，也对认知阻碍者，如阅读困难者，有帮助。如果文字的大小要随页面的缩放而变化，请使用无单位的值，以确保行高也会等比例缩放。</p>
+        <p><img src="https://s1.ax1x.com/2020/06/21/N15rmq.png" alt="N15rmq.png"><br>我默默的点上一根烟，讲起了那个关于line-height的故事…<br>故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。<br>我默默的点上第二根烟，开始了求知之旅…<br><a id="more"></a></p>
+<h4 id="表现形式"><a href="#表现形式" class="headerlink" title="表现形式"></a>表现形式</h4><p><img src="https://s1.ax1x.com/2020/06/21/N3PKVf.jpg" alt="N3PKVf.jpg"><br>大概就是这样的表现形式，同样的line-height，安卓就是会偏上。</p>
+<h4 id="挣扎方式"><a href="#挣扎方式" class="headerlink" title="挣扎方式"></a>挣扎方式</h4><p>为了使安卓的表象形式如iOS一样优秀，我做了如下努力：</p>
+<ol>
+<li>通过padding撑起高度，iOS依旧稳定，安卓看起来没什么变化。同时，由于尺寸的变大(小)，<code>背景图也会发生拉伸(挤压)</code>的情况 —— <font color="red">X</font></li>
+<li>通过增大line-height方式强行居中，这个需要<code>一像素一像素的去调试</code>，依旧不能保证换个手机会不会两端会不会发生错乱 —— <font color="red">X</font></li>
+<li>尝试使用js来判断机型，来做不同line-height的适配，但是设计的元素尺寸大多并不统一，需要枚举的元素也就很多，同时如果<code>字体过小</code>依旧会出现第二种问题 —— <font color="red">X</font></li>
+</ol>
+<h4 id="“寻医问药”"><a href="#“寻医问药”" class="headerlink" title="“寻医问药”"></a>“寻医问药”</h4><p>遇到这种问题的人一定不止我一个，或许我可以搜到相关的解决方案，但是我很失望。百度到就方案就是你复制我的我复制你的，毫无科学依据的乱讲。(我从来都很反感这种化粪池的现象。)</p>
+<p>无奈之下，我”科学上网”到<a href="https://stackoverflow.com" target="_blank" rel="noopener">stackoverflow</a>找到了一个和我遇到同样问题的外国友人，问题的描述如下：<a href="https://stackoverflow.com/questions/31573602/android-webview-css-line-height-rendering-bug" target="_blank" rel="noopener">Android WebView css line-height rendering bug</a></p>
+<p>也通过这里我看到了一个靠谱的回答：<br><img src="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg" alt="stackoverflow"></p>
+<blockquote>
+<p>This is caused by the font boosting feature from webkit. There is actually a bug assigned to your problem: <a href="https://bugs.webkit.org/show_bug.cgi?id=84186" target="_blank" rel="noopener">Bug 84186</a></p>
+</blockquote>
+<blockquote>
+<p>这是由webkit的字体增强功能引起的。具体可以查看<a href="https://bugs.webkit.org/show_bug.cgi?id=84186" target="_blank" rel="noopener">Bug 84186</a>了解详情</p>
+</blockquote>
+<h4 id="深入Bug-84186"><a href="#深入Bug-84186" class="headerlink" title="深入Bug 84186"></a>深入Bug 84186</h4><p>然后映入眼帘的就是这么一个看起来<strong>很科学</strong>的阐述：<br><img src="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg" alt="webkit-bugs remarks"></p>
+<blockquote>
+<p>Master bug to track progress and related issues.<br>跟进当前bug的解决进度和相关问题。<br>When viewing desktop websites on mobile devices, browsers usually layout the page at a fixed width of about 980 CSS pixels due to the default viewport settings. The user usually can’t read the text when the page is initially displayed, but can zoom in to read it. However on a portrait phone screen, once zoomed in such that text is a legible size, only about a 320 CSS pixel wide area of content fits onscreen at a time.<br>在移动设备(手机)上查看pc网站时，由于视口的设置浏览器通常以约980css像素的固定宽度来布局页面。最初显示页面时，用户通常无法阅读文字，但可以放大以阅读文字。但是，在纵向手机屏幕上，一旦放大以使文本清晰可辨，则一次只能在屏幕上显示约320css像素宽的内容区域。<br>For wide columns of text, this means you’d either need to zoom out and look at tiny unreadable / barely readable text, or you’d need to pan left and right for every line of text you read. The same thing happens (though less severely) on landscape phones and on portrait tablets.<br>对于较长的文本行，这意味着要么需要缩小并查看微笑到几乎不可读的文字，要么阅读到末尾时左右移动。在手机和平板电脑上会发生同样的事情，但这看起来也不是那么严重。<br>To prevent such situations, this bug tracks adding support for Font Boosting (upstreamed from Chrome for Android). When pages load, Font Boosting increases the font size of text in wide columns, so you won’t have to zoom in on them as much and hence every column fits onscreen at a legible text size.<br>为避免这种情况，此错误会跟踪添加对字体增强的支持（从Android的Chrome开始）。加载页面时，字体增强功能会增加宽列中文本的字体大小，因此您不必将其放大太多，因此每一列都可以在屏幕上显示清晰的文本大小。</p>
+<p>Related Links</p>
+<p>Firefox Mobile:<br>  Description: <a href="http://dbaron.org/log/20111126-font-inflation" target="_blank" rel="noopener">http://dbaron.org/log/20111126-font-inflation</a><br>  Bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=627842" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=627842</a><br>  Dev-doc: <a href="https://developer.mozilla.org/en/CSS/text-size-adjust" target="_blank" rel="noopener">https://developer.mozilla.org/en/CSS/text-size-adjust</a><br>Mobile Safari:<br>  Dev-doc: <a href="http://goo.gl/rRIiF" target="_blank" rel="noopener">http://goo.gl/rRIiF</a><br>  Internet Explorer:<br>  Dev-doc:<a href="http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2</a>.aspx#sectionToggle2)<br>  Interaction with Compatibility View: <a href="http://goo.gl/QdhRm" target="_blank" rel="noopener">http://goo.gl/QdhRm</a><br>Comment 1Simon Hausmann 2012-04-18 01:43:44 PDT</p>
+</blockquote>
+<!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height -->
+<!-- 默认的line-height 为1.2，规范建议我们将
+主段落内容的 line-height 至少应为 1.5。 这将有助于改善低可视条件下的体验，也对认知阻碍者，如阅读困难者，有帮助。如果文字的大小要随页面的缩放而变化，请使用无单位的值，以确保行高也会等比例缩放。 -->
+<p>未完待补充</p>
 
       
     </div>
@@ -570,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Links"><span class="nav-number">1.</span> <span class="nav-text">Related Links</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#表现形式"><span class="nav-number">1.</span> <span class="nav-text">表现形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挣扎方式"><span class="nav-number">2.</span> <span class="nav-text">挣扎方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“寻医问药”"><span class="nav-number">3.</span> <span class="nav-text">“寻医问药”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入Bug-84186"><span class="nav-number">4.</span> <span class="nav-text">深入Bug 84186</span></a></li></ol></div>
             
 
           </div>
