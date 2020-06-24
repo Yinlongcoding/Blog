@@ -82,7 +82,7 @@
 <meta name="description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta name="keywords" content="CSS,webView,Android,css兼容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android webView &quot;line-height&quot; 问题">
+<meta property="og:title" content="Android webView &quot;line-height&quot;偏移 [溯源篇]">
 <meta property="og:url" content="http://sliver.site/blog/2020/06/20/Summary-css/lineHeight_Android/index.html">
 <meta property="og:site_name" content="伴">
 <meta property="og:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
@@ -91,9 +91,9 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/21/N3PKVf.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg">
-<meta property="og:updated_time" content="2020-06-21T06:03:33.960Z">
+<meta property="og:updated_time" content="2020-06-24T02:14:26.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android webView &quot;line-height&quot; 问题">
+<meta name="twitter:title" content="Android webView &quot;line-height&quot;偏移 [溯源篇]">
 <meta name="twitter:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/06/21/N15rmq.png">
 
@@ -131,7 +131,7 @@
 
 
 
-  <title>Android webView "line-height" 问题 | 伴</title>
+  <title>Android webView "line-height"偏移 [溯源篇] | 伴</title>
   
 
 
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android webView "line-height" 问题</h1>
+          <h1 class="post-title" itemprop="name headline">Android webView "line-height"偏移 [溯源篇]</h1>
         
 
         <div class="post-meta">
@@ -378,12 +378,25 @@
 <blockquote>
 <p>Master bug to track progress and related issues.<br>跟进当前bug的解决进度和相关问题。<br>When viewing desktop websites on mobile devices, browsers usually layout the page at a fixed width of about 980 CSS pixels due to the default viewport settings. The user usually can’t read the text when the page is initially displayed, but can zoom in to read it. However on a portrait phone screen, once zoomed in such that text is a legible size, only about a 320 CSS pixel wide area of content fits onscreen at a time.<br>在移动设备(手机)上查看pc网站时，由于视口的设置浏览器通常以约980css像素的固定宽度来布局页面。最初显示页面时，用户通常无法阅读文字，但可以放大以阅读文字。但是，在纵向手机屏幕上，一旦放大以使文本清晰可辨，则一次只能在屏幕上显示约320css像素宽的内容区域。<br>For wide columns of text, this means you’d either need to zoom out and look at tiny unreadable / barely readable text, or you’d need to pan left and right for every line of text you read. The same thing happens (though less severely) on landscape phones and on portrait tablets.<br>对于较长的文本行，这意味着要么需要缩小并查看微笑到几乎不可读的文字，要么阅读到末尾时左右移动。在手机和平板电脑上会发生同样的事情，但这看起来也不是那么严重。<br>To prevent such situations, this bug tracks adding support for Font Boosting (upstreamed from Chrome for Android). When pages load, Font Boosting increases the font size of text in wide columns, so you won’t have to zoom in on them as much and hence every column fits onscreen at a legible text size.<br>为避免这种情况，此错误会跟踪添加对字体增强的支持（从Android的Chrome开始）。加载页面时，字体增强功能会增加宽列中文本的字体大小，因此您不必将其放大太多，因此每一列都可以在屏幕上显示清晰的文本大小。</p>
 <p>Related Links</p>
-<p>Firefox Mobile:<br>  Description: <a href="http://dbaron.org/log/20111126-font-inflation" target="_blank" rel="noopener">http://dbaron.org/log/20111126-font-inflation</a><br>  Bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=627842" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=627842</a><br>  Dev-doc: <a href="https://developer.mozilla.org/en/CSS/text-size-adjust" target="_blank" rel="noopener">https://developer.mozilla.org/en/CSS/text-size-adjust</a><br>Mobile Safari:<br>  Dev-doc: <a href="http://goo.gl/rRIiF" target="_blank" rel="noopener">http://goo.gl/rRIiF</a><br>  Internet Explorer:<br>  Dev-doc:<a href="http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2</a>.aspx#sectionToggle2)<br>  Interaction with Compatibility View: <a href="http://goo.gl/QdhRm" target="_blank" rel="noopener">http://goo.gl/QdhRm</a><br>Comment 1Simon Hausmann 2012-04-18 01:43:44 PDT</p>
+<p>Firefox Mobile: 火狐移动端<br>  Description: <a href="http://dbaron.org/log/20111126-font-inflation" target="_blank" rel="noopener">http://dbaron.org/log/20111126-font-inflation</a><br>  Bug: <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=627842" target="_blank" rel="noopener">https://bugzilla.mozilla.org/show_bug.cgi?id=627842</a><br>  Dev-doc: <a href="https://developer.mozilla.org/en/CSS/text-size-adjust" target="_blank" rel="noopener">https://developer.mozilla.org/en/CSS/text-size-adjust</a><br>Mobile Safari: safari移动端<br>  Dev-doc: <a href="http://goo.gl/rRIiF" target="_blank" rel="noopener">http://goo.gl/rRIiF</a><br>  Internet Explorer: IE<br>  Dev-doc:<a href="http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92" target="_blank" rel="noopener">http://msdn.microsoft.com/en-us/library/ff462082(v=vs.92).aspx#sectionToggle2</a>.aspx#sectionToggle2)<br> 与兼容性视图的交互<br>  Interaction with Compatibility View: <a href="http://goo.gl/QdhRm" target="_blank" rel="noopener">http://goo.gl/QdhRm</a><br>Comment 1Simon Hausmann 2012-04-18 01:43:44 PDT</p>
 </blockquote>
+<p>显然，这个问题最早出现在2012年。首先我了解到了，为什么在移动端上字体大小和实际css单位不同的原因，在真机上<code>字体增强功能会增加宽列中文本的字体大小</code>。<br>这看似对于交互方面的优化，在写h5页面时会显得如此尖锐。</p>
+<h4 id="Font-Boosting"><a href="#Font-Boosting" class="headerlink" title="Font Boosting"></a>Font Boosting</h4><blockquote>
+<p>在手机上浏览网页时，很可能因为原始页面宽度较大，在手机屏幕上缩小后就看不清其中的文字了。而 Font Boosting 特性在这时会自动将其中的文字字体变大，保证在即不需要左右滑动屏幕，也不需要双击放大屏幕内容的前提下，也可以让人们方便的阅读页面中的文本。</p>
+</blockquote>
+<p>字体增强问题我参考了如下的问题与描述：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/13430897/how-to-override-font-boosting-in-mobile-chrome" target="_blank" rel="noopener">how to override font boosting in mobile chrome - stackoverflow</a></li>
+<li><a href="https://stackoverflow.com/questions/13416989/computed-font-size-is-bigger-than-defined-in-css-on-the-asus-nexus-7" target="_blank" rel="noopener">Computed font size is bigger than defined in CSS on the Asus Nexus 7 - stackoverflow</a></li>
+<li><a href="https://github.com/amfe/article/issues/10" target="_blank" rel="noopener">Font Boosting - github</a></li>
+</ul>
+<p>通过研读以上描述，得出最好的一个结论便是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 比较重要的就是：initial-scale=1.0，指定其缩放比例 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.resetFont</span> &#123;</span></span><br><span class="line"><span class="undefined">    max-height: 99999px;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Tips: 以上方案待验证，但我个人想了一下，字号还是不同，只是看起来差距不大。</p>
+<h4 id="我的代码等于白写了？"><a href="#我的代码等于白写了？" class="headerlink" title="我的代码等于白写了？"></a>我的代码等于白写了？</h4><p>那么问题来了，我所写的<code>line-height: 0.7rem;</code>是否还生效。</p>
+<p>验证结果中，未完待补充。</p>
 <!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height -->
 <!-- 默认的line-height 为1.2，规范建议我们将
 主段落内容的 line-height 至少应为 1.5。 这将有助于改善低可视条件下的体验，也对认知阻碍者，如阅读困难者，有帮助。如果文字的大小要随页面的缩放而变化，请使用无单位的值，以确保行高也会等比例缩放。 -->
-<p>未完待补充</p>
 
       
     </div>
@@ -580,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#表现形式"><span class="nav-number">1.</span> <span class="nav-text">表现形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挣扎方式"><span class="nav-number">2.</span> <span class="nav-text">挣扎方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“寻医问药”"><span class="nav-number">3.</span> <span class="nav-text">“寻医问药”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入Bug-84186"><span class="nav-number">4.</span> <span class="nav-text">深入Bug 84186</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#表现形式"><span class="nav-number">1.</span> <span class="nav-text">表现形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挣扎方式"><span class="nav-number">2.</span> <span class="nav-text">挣扎方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“寻医问药”"><span class="nav-number">3.</span> <span class="nav-text">“寻医问药”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深入Bug-84186"><span class="nav-number">4.</span> <span class="nav-text">深入Bug 84186</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Font-Boosting"><span class="nav-number">5.</span> <span class="nav-text">Font Boosting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我的代码等于白写了？"><span class="nav-number">6.</span> <span class="nav-text">我的代码等于白写了？</span></a></li></ol></div>
             
 
           </div>
