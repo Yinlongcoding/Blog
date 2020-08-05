@@ -82,7 +82,7 @@
 <meta name="description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta name="keywords" content="CSS,webView,Android,css兼容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android webView &quot;line-height&quot;偏移 [溯源篇]">
+<meta property="og:title" content="webView &quot;line-height&quot;偏移">
 <meta property="og:url" content="http://sliver.site/blog/2020/06/20/Summary-css/lineHeight_Android/index.html">
 <meta property="og:site_name" content="伴">
 <meta property="og:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
@@ -91,9 +91,9 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/21/N3PKVf.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQoMMn.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/06/20/NQobWQ.jpg">
-<meta property="og:updated_time" content="2020-06-24T02:14:26.147Z">
+<meta property="og:updated_time" content="2020-08-05T03:03:50.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android webView &quot;line-height&quot;偏移 [溯源篇]">
+<meta name="twitter:title" content="webView &quot;line-height&quot;偏移">
 <meta name="twitter:description" content="我默默的点上一根烟，讲起了那个关于line-height的故事…故事要从那个解忧杂货铺的活动说起来，那是一个有背景图的按钮，它在ios设备上表现的很棒！但是，在Android上文字无法垂直居中。我默默的点上第二根烟，开始了求知之旅…">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/06/21/N15rmq.png">
 
@@ -131,7 +131,7 @@
 
 
 
-  <title>Android webView "line-height"偏移 [溯源篇] | 伴</title>
+  <title>webView "line-height"偏移 | 伴</title>
   
 
 
@@ -285,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android webView "line-height"偏移 [溯源篇]</h1>
+          <h1 class="post-title" itemprop="name headline">webView "line-height"偏移</h1>
         
 
         <div class="post-meta">
@@ -393,10 +393,8 @@
 <p>通过研读以上描述，得出最好的一个结论便是：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 比较重要的就是：initial-scale=1.0，指定其缩放比例 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.resetFont</span> &#123;</span></span><br><span class="line"><span class="undefined">    max-height: 99999px;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>Tips: 以上方案待验证，但我个人想了一下，字号还是不同，只是看起来差距不大。</p>
 <h4 id="我的代码等于白写了？"><a href="#我的代码等于白写了？" class="headerlink" title="我的代码等于白写了？"></a>我的代码等于白写了？</h4><p>那么问题来了，我所写的<code>line-height: 0.7rem;</code>是否还生效。</p>
-<p>验证结果中，未完待补充。</p>
-<!-- https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height -->
-<!-- 默认的line-height 为1.2，规范建议我们将
-主段落内容的 line-height 至少应为 1.5。 这将有助于改善低可视条件下的体验，也对认知阻碍者，如阅读困难者，有帮助。如果文字的大小要随页面的缩放而变化，请使用无单位的值，以确保行高也会等比例缩放。 -->
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-height</a></p>
+<p>默认的line-height 为1.2，规范建议我们将<br>主段落内容的 line-height 至少应为 1.5。 这将有助于改善低可视条件下的体验，也对认知阻碍者，如阅读困难者，有帮助。如果文字的大小要随页面的缩放而变化，请使用无单位的值，以确保行高也会等比例缩放。</p>
 
       
     </div>
@@ -442,6 +440,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/08/05/tools/vscode-usercode/" rel="prev" title="Visual Studio Code生活指北（一）">
+                Visual Studio Code生活指北（一） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -522,7 +524,7 @@
               
                 <a href="/blog/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +535,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/blog/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -544,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/blog/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
